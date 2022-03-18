@@ -5,7 +5,7 @@
   "author": "khronus project",
   "private": false,
   "dependencies": {
-    "@khronus/time-cog": "^1.0.2"
+    "@khronus/time-cog": "^1.0.3"
   },
   "license": "MIT"
 }
