@@ -1,11 +1,11 @@
 {
   "name": "@khronus/khronus-utils",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Collection of contracts and interfaces needed to interact with the Khronus protocol",
   "author": "khronus project",
   "private": false,
   "dependencies": {
-    "@khronus/time-cog": "^1.0.3"
+    "@khronus/time-cog": "^1.0.2"
   },
   "license": "MIT"
 }
