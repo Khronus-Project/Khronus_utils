@@ -62,12 +62,10 @@ abstract contract KhronusNode {
     }
 
     function broadcast(
-        address _sender, 
-        uint256 _value, 
         bytes memory _data
         ) 
         external {
             require (msg.sender == address(KhronusCoordinator),"Only coordinator contract can broadcast to nodes");
-            emit RequestReceived(_sender,_value,_data);
+            emit RequestReceived(msg.sender,0,_data);
         }   
 }
