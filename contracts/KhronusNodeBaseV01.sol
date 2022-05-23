@@ -5,7 +5,7 @@ import "../interfaces/KhronusCoordinatorInterface.sol";
 
 abstract contract KhronusNode {
     event RequestReceived(
-        address indexed sender,
+        address indexed relatedAddress,
         uint256 value,
         bytes data
         );
@@ -62,10 +62,11 @@ abstract contract KhronusNode {
     }
 
     function broadcast(
+        address _requester,
         bytes memory _data
         ) 
         external {
             require (msg.sender == address(KhronusCoordinator),"Only coordinator contract can broadcast to nodes");
-            emit RequestReceived(msg.sender,0,_data);
+            emit RequestReceived(_requester,0,_data);
         }   
 }
