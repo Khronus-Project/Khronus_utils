@@ -1,6 +1,6 @@
 {
   "name": "@khronus/khronus-utils",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Collection of contracts and interfaces needed to interact with the Khronus protocol",
   "author": "khronus project",
   "private": false,

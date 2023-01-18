@@ -1,9 +1,72 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../interfaces/KhronusCoordinatorInterface.sol";
 import "@khronus/time-cog@1.0.2/contracts/src/KhronusTimeCog.sol";
 
+interface KhronusCoordinatorInterface {
+   
+   enum timeUnit{
+        noUnit,
+        unitMinute,
+        unitHour,
+        unitDay,
+        unitMonth
+    }
+    // Interface Functions
+    // Only owner and internal functions are not provided
+
+    //Client related functions
+    function registerClient(
+        address _clientContract, 
+        uint256 _deposit) 
+        external;
+    
+    function fundClient(
+        address _clientContract, 
+        uint256 _deposit
+        ) 
+        external 
+        returns(bool);
+
+    //Node contract related functions
+    function registerNode(
+        address _nodeAddress
+        ) 
+        external 
+        returns (bytes32);  
+
+    //KhronTab related functions
+    
+    //Set khron request
+    function requestKhronTab(
+        uint256 _timestamp, 
+        uint256 _iterations, 
+        uint256 _step) 
+        external 
+        returns(bytes32);
+    
+    //Serve khron alerts
+    function serveKhronAlert(
+        bytes32 _alertID
+        ) 
+        external 
+        returns (bool);
+    
+    //Withdrawal functions
+    function getNodeFromIndex(bytes32 _index) external view returns(address);
+    
+    function getKhronBalanceOf(address _beneficiary) external view returns (uint256);
+
+    function getOperatorMarkup() external view returns (uint256);
+
+    function getRegistrationDeposit() external view returns (uint256);
+
+    function getMinimumKhronClientBalance() external view returns (uint256);
+
+    function getBandOfTolerance() external view returns (uint256);
+
+    function getProtocolGasConstant() external view returns(uint256);
+}
 
 abstract contract KhronusClient{
 
@@ -20,6 +83,7 @@ address khronusCoordinator;
     }
 
     function clientRequestKhronTab(uint256 _timestamp, uint256 _iterations, uint256 _step) internal returns (bytes32){
+        require(_iterations==1 && _step==0); //in testing version the full cronjob is not available
         require(KhronusTimeCog.isValidTimestamp(_timestamp), "the timestamp is not valid");
         uint256 _processedTimestamp = _processTimeStamp(_timestamp);
         return KhronusCoordinator.requestKhronTab(_processedTimestamp, _iterations, _step);
