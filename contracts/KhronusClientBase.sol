@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {KhronusTimeCog} from "@khronus/time-cog@1.0.2/contracts/src/KhronusTimeCog.sol";
-import {KhronusCoordinatorInterface}"../interfaces/KhronusCoordinatorInterface.sol";
+import {KhronusCoordinatorInterface} from "../interfaces/KhronusCoordinatorInterface.sol";
 
 abstract contract KhronusClient{
 
