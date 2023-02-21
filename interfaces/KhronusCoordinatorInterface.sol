@@ -48,8 +48,7 @@ interface KhronusCoordinatorInterface {
     function serveKhronAlert(
         bytes32 _alertID
         ) 
-        external 
-        returns (bool);
+        external;
     
     //Withdrawal functions
     function getNodeFromIndex(bytes32 _index) external view returns(address);

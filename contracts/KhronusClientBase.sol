@@ -1,12 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@khronus/time-cog@1.0.2/contracts/src/KhronusTimeCog.sol";
-import "../interfaces/KhronusCoordinatorInterface.sol";
+import {KhronusTimeCog} from "@khronus/time-cog@1.0.2/contracts/src/KhronusTimeCog.sol";
+import {KhronusCoordinatorInterface}"../interfaces/KhronusCoordinatorInterface.sol";
 
 abstract contract KhronusClient{
 
-event CoordinatorChanged (address indexed oldCoordinator, address indexed newCoordinator, uint timestamp );
+event CoordinatorChanged (
+        address indexed oldCoordinator, address indexed newCoordinator, uint timestamp
+        );
+event OwnerTransfered(
+        address indexed sender, address indexed newOwner, uint timestamp
+        );
 
 KhronusCoordinatorInterface private KhronusCoordinator;
 address owner;
@@ -35,7 +40,7 @@ address khronusCoordinator;
     }
 
 
-    // pending to emit an event here to record the change of coordinator
+    // Administrative Functions
     function changeCoordinator(address _newCoordinator) external {
         require (msg.sender == owner, "only owner function");
         address _oldCoordinator = khronusCoordinator;
@@ -44,6 +49,12 @@ address khronusCoordinator;
         emit CoordinatorChanged(_oldCoordinator, _newCoordinator, block.timestamp);
     }
 
+    function transferOwnership(address _newOwner) external {
+        require (msg.sender == owner, "Only owner can set new owner");
+        owner = _newOwner;
+        emit OwnerTransfered(msg.sender, _newOwner, block.timestamp);
+    }
+    
     //internal logic functions for timestamp transformation
     function _processTimeStamp(uint256 _timestamp) internal view returns (uint256){
         uint256 _currentTimestamp = block.timestamp;
