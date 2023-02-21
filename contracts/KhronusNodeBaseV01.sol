@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../interfaces/KhronusCoordinatorInterface.sol";
+import {KhronusCoordinatorInterface} from "../interfaces/KhronusCoordinatorInterface.sol";
 
 abstract contract KhronusNode {
     event RequestReceived(
